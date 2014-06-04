@@ -1,0 +1,47 @@
+@(paymentTerms: List[PaymentTerm])
+
+@main {
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<div class="row">
+				<h3>Create Sales Order - Master Data</h3>
+			</div>
+			<div class="row">
+				<form action="@controllers.routes.SalesOrderController.saveMasterData()" method="POST" role="form">
+					<div class="form-group">
+						<label for="priority" class="control-label">Priority</label>
+						<select name="priority" id="priority" class="form-control">
+							<option value="1">Low</option>
+							<option value="2" selected>Normal</option>
+							<option value="3">High</option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label for="customer-completer" class="control-label">Customer</label>
+						<input type="text" id="customer-completer" class="form-control">
+						<input type="hidden" id="customerId" name="customerId" >
+					</div>
+					
+					<div class="form-group">
+						<label for="paymentTermsId" class="control-label">Payment Terms (tbd)</label>
+						<select name="paymentTermsId" id="paymentTermsId" class="form-control">
+							@for(paymentTerm <- paymentTerms) {
+								<option value="@paymentTerm.getId()">@paymentTerm.getDescription()</option>
+							}
+						</select>
+					</div>
+					
+					<button name="saveButton" type="submit" class="btn btn-default">
+						Save
+					</button>
+					<button name="saveAndEnterProductButton" type="submit" class="btn btn-default">
+						Save and Enter Products
+					</button>	
+				</form>
+			</div>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+}

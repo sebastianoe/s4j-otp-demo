@@ -1,0 +1,145 @@
+@main {
+	<h1>Payment Receipts</h1>
+
+	<div class="row">
+		<h2>Invoices</h2>
+		
+		<div class="form-group">
+			<label for="invoice-completer" class="control-label">Search Invoices</label>
+			<input type="text" id="invoice-completer" class="form-control">
+		</div>
+	</div>
+	<div class="row hidden" id="details-row">
+		<div class="col-md-4">
+			<div class="row" id="customer-details" data-target="@controllers.routes.InvoiceController.customerDetails()">
+				<h2>Customer Details</h2>
+				<h3 id="customer_name"></h3>
+				
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Address</h3>
+					</div>
+					<div class="panel-body">
+						<p>
+							<span id="street"></span>
+							<span id="streetno"></span>
+						</p>
+						<p>
+							<span id="postcode"></span>
+							<span id="city"></span>
+						</p>
+					</div>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Contact Person</h3>
+					</div>
+					<div class="panel-body">
+						<p>
+							<span id="firstname"></span>
+							<span id="lastname"></span>
+						</p>
+						<p>
+							<span id="email"></span>
+						</p>
+						<p>
+							<span id="phone"></span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="row" id="invoice-details" 
+					data-target="@controllers.routes.InvoiceController.invoiceDetails()"
+					data-days-discount-url="@controllers.routes.InvoiceController.daysDiscount()"
+					data-set-paid-url="@controllers.routes.InvoiceController.setPaid()">
+				<h2>Invoice Details</h2>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Summary</h3>
+					</div>
+					<div class="panel-body">
+						<p>
+							Amount:
+							<span id="invoiceamount" class="hidden"></span>
+							<span id="invoiceamount-discounted"></span> (inluding payment constraints discounts)
+						</p>
+						<p>
+							Current payment constraints discount (based on days):
+							<span id="days-offset-discount"></span>
+						</p>
+						<p>
+							Date:
+							<span id="invoicedate"></span>
+						</p>
+						<p>
+							Overdue:
+							<span id="invoiceoverdue"></span>
+						</p>
+						<p>
+							Paid:
+							<span id="paidstatus" class="text-danger"></span>
+						</p>
+					</div>
+				</div>
+				
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Line Items</h3>
+					</div>
+					<div class="panel-body">
+						<table id="lineitems" class="table">
+							<thead>
+								<tr>
+									<td>Amount</td>
+									<td>Product</td>
+									<td>Net-Price</td>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="row">
+				<h2>Payment Receipts</h2>
+				<table id="payment-receipts" class="table" 
+						data-add-url="@controllers.routes.InvoiceController.addPaymentReceipt()"
+						data-delete-url="@controllers.routes.InvoiceController.deletePaymentReceipt()">
+					<thead>
+						<tr>
+							<th>Date</th>
+							<th>Amount</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+				<div class="form-inline">
+					<div class="form-group">
+						<label class="sr-only" for="pr-date"></label>
+						<input type="text" id="pr-date" class="datepicker form-control" data-date-format="yyyy-mm-dd">	
+					</div>
+					<div class="form-group">
+						<label class="sr-only" for="pr-amount"></label>
+						<input type="number" step="0.01" id="pr-amount" class="form-control" placeholder="amount">	
+					</div>
+					
+					<button id="add-payment-receipt" class="btn btn-default">add</button>
+				</div>
+				<div>
+					<p>
+						Total Amount: <span id="total-amount"></span>
+					</p>
+					<p>
+						Remaining Amount: <span id="remaining-amount"></span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+}

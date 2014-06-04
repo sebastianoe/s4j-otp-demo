@@ -1,0 +1,70 @@
+@(customers: List[Customer])
+
+@main {
+	<h1>Customers</h1>
+	@if(flash.containsKey("success")) {
+		<div class="alert alert-success">
+			@flash.get("success") 
+		</div>
+	}
+	@if(flash.containsKey("error")) {
+		<div class="alert alert-error">
+			@flash.get("error") 
+		</div>
+	}
+	
+	<div class="row">
+		<div class="col-md-12">
+			<ul class="list-inline">
+				<li>
+					<a href="@controllers.routes.CustomerController.add()">
+						Add Customer
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Street</th>
+						<th>Street Number</th>
+						<th>Post Code</th>
+						<th>City</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Phone</th>
+						<th>E-Mail</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@for(customer <- customers) {
+						<tr>
+							<td>@customer.getId()</td>
+							<td><a href="@controllers.routes.CustomerController.details(customer.getId())">@customer.getName()</a></td>
+							<td>@customer.getStreet()</td>
+							<td>@customer.getStreetNumber()</td>
+							<td>@customer.getPostCode()</td>
+							<td>@customer.getCity()</td>
+							<td>@customer.getFirstName()</td>
+							<td>@customer.getLastName()</td>
+							<td>@customer.getPhone()</td>
+							<td>@customer.getEmail()</td>
+							<td class="danger">
+								<a href="@controllers.routes.CustomerController.delete(customer.getId())">
+									Delete	
+								</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+}

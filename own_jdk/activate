@@ -1,0 +1,7 @@
+oj_path=$(cd $(dirname $BASH_SOURCE); pwd)
+
+unset JAVA_HOME
+echo "Added $oj_path to PATH"
+export PATH=$oj_path/bin:$PATH
+export PS1="$PS1\[\033[0;32m\][OwnJDK]\[\033[0;30m\] "
+cd ./otp

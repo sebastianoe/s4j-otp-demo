@@ -1,0 +1,157 @@
+@(salesOrder: SalesOrder, lineItems: List[SalesOrderLineItem])
+
+@main {
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<div class="row">
+				<h3>Sales Order - Enter Products</h3>
+			</div>
+			
+			<span id="atp-url" data-target="@controllers.routes.SalesOrderController.performAtpCheck()"></span>
+			<span id="save-url" data-target="@controllers.routes.SalesOrderController.saveProductData(salesOrder.getId)"></span>
+			
+			<div class="row">
+				<h4>General</h4>
+				<div class="col-md-2">
+					<h5>SalesOrderID</h5>
+					@salesOrder.getId()
+				</div>
+				<div class="col-md-3">
+					<h5>Customer</h5>
+					@salesOrder.getCustomer().getName()
+				</div>
+				<div class="col-md-2">
+					<h5>Priority</h5>
+					@salesOrder.getPriority()
+				</div>
+				<div class="col-md-2">
+					<h5>Status</h5>
+					@salesOrder.getStatus()
+				</div>
+				<div class="col-md-3">
+					<h5>Payment Terms</h5>
+					@salesOrder.getPaymentTerm().getDescription()
+				</div>
+			</div>
+		</div>
+		<div class="col-md-1"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<table class="table" id="soliTable">
+				<thead>
+					<th>#</th>
+					<th>Product</th>
+					<th>Quantity</th>
+					<th>Unit</th>
+					<th>Price</th>
+					<th>Shipping</th>
+					<th>RequestDate</th>
+					<th>ATP Check</th>
+					<th></th>
+				</thead>
+				<tbody>
+					
+					@for((lineItem, idx) <- lineItems.zipWithIndex) {
+						<tr>
+							<td>
+								<span class="rowIndex">@(idx + 1)</span>
+								<input type="hidden" value="@lineItem.getId()" class="copyable erasable id">
+							</td>
+							<td>
+								<input type="hidden" class="productId copyable erasable" value="@lineItem.getProduct.getId()">
+								<input type="text" class="product-completer erasable form-control" 
+									value="@lineItem.getProduct().getName()">
+							</td>
+							<td>
+								<input type="number" value="@lineItem.getQuantity()" 
+									class="copyable erasable quantity form-control text-right" 
+									min="0" step="1" value="0">
+							</td>
+							<td>
+								<span class="productUnit erasable">
+									@lineItem.getProduct().getUnit()
+								</span>
+							</td>
+							<td>
+								<input type="hidden" class="productPrice copyable erasable" 
+									value="@("%.2f".format(lineItem.getProduct().getPprice() + lineItem.getProduct().getDefaultMargin()))">
+								<span class="erasable price">
+									
+								</span>
+							</td>
+							<td>
+								<span class="productShippingCost erasable">
+									@("%.2f".format(lineItem.getProduct().getShippingCost()))
+								</span>
+							</td>
+							<td>
+								<input type="text" value="@lineItem.getPromiseDate()" 
+									class="promiseDate copyable erasable datepicker form-control"
+									data-date-format="yyyy-mm-dd">
+							</td>
+							<td><span class="atpResult erasable success">
+								Pass
+							</span></td>
+							<td class="danger">
+								<a href="#" class="deleteRow">Delete</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+			
+			<div class="text-right">
+				<a href="#" id="addRow">Add Row</a>
+			</div>
+		</div>
+		<div class="col-md-1"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-10">
+			<table>
+				<tbody>
+					<tr>
+						<td class="col-md-2">Total Net Value</td>
+						<td class="col-md-2 text-right"><span id="totalNetValue"></span></td>
+						<td>$</td>
+					</tr>
+					<tr>
+						<td class="col-md-2">DiscountFactor</td>
+						<td class="col-md-2">
+							<input type="number" id="discount" 
+								class="form-control text-right" step="0.01"
+								value="@(salesOrder.getDiscountFactor() * 100)">
+						</td>
+						<td>%</td>
+					</tr>
+					<tr>
+						<td class="col-md-2">Shipping</td>
+						<td class="col-md-2 text-right"><span id="shipping"></span></td>
+						<td>$</td>
+					</tr>
+					<tr>
+						<td class="col-md-2">Tax</td>
+						<td class="col-md-2 text-right"><span id="tax"></span></td>
+						<td>$</td>
+					</tr>
+					<tr class="active">
+						<td class="col-md-2"><strong>Total</strong></td>
+						<td class="col-md-2 text-right"><span><strong id="total"></strong></span></td>
+						<td>$</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<div class="top-buffer">
+				<button id="saveSOLIsButton" class="btn btn-default">
+					Save
+				</button>
+			</div>
+		</div>
+		<div class="col-md-1"></div>
+	</div>
+}

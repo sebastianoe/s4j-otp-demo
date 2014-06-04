@@ -1,0 +1,9 @@
+{
+  "db":{
+    "liveConnection":{
+      "url":"jdbc:mysql://localhost:3306/tuk",
+      "user":"root",
+      "password":""
+    }
+  }
+}

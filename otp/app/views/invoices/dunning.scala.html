@@ -1,0 +1,63 @@
+@(invoices: List[Invoice])
+
+@main {
+	<h1>Dunning</h1>
+	@if(flash.containsKey("success")) {
+		<div class="alert alert-success">
+			@flash.get("success") 
+		</div>
+	}
+	@if(flash.containsKey("error")) {
+		<div class="alert alert-error">
+			@flash.get("error") 
+		</div>
+	}
+
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-hover dunning-table">
+				<thead>
+					<tr>
+						<th>Invoice ID</th>
+						<th>Order ID</th>
+						<th>Customer</th>
+						<th>Requested Delivery Date</th>
+						<th>Invoice Date</th>
+						<th>Net Value</th>
+						<th>Status</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@for(invoice <- invoices) {
+						<tr>
+							<td class="dunning-invoice-id">
+								@invoice.getId()
+							</td>
+							<td>
+								<a href="@controllers.routes.SalesOrderController.editProductData(invoice.getSalesOrder().getId())">
+									@invoice.getSalesOrder.getId()
+								</a>
+							</td>
+							<td>
+								<span class="hidden dunning-customer-id">@invoice.getCustomer().getId()</span>
+								<a href="@controllers.routes.CustomerController.details(invoice.getCustomer().getId())">
+									@invoice.getCustomer().getName()
+								</a>
+							</td>
+							<td>@invoice.getSalesOrder().getMaxPromiseDate()</td>
+							<td>@invoice.getBillingDate()</td>
+							<td class="dunning-net-amount">@invoice.getAmount()</td>
+							<td>Dunned <span class="od-count">@invoice.getOverdueNoticeCount()</span> times</td>
+							<td>
+								<a class="dun" data-target="@controllers.routes.InvoiceController.dun()">
+									Dun
+								</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+}

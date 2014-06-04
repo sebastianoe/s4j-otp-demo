@@ -1,0 +1,5 @@
+@(customerForm: Form[Customer])
+
+@main {
+	@form("Edit", customerForm, routes.CustomerController.saveEdit(customerForm.get().getId()))
+}

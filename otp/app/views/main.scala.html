@@ -1,0 +1,77 @@
+@(content: Html)
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order to Pay</title>
+<link href="@routes.Assets.at("stylesheets/lib/bootstrap.min.css")" rel="stylesheet">
+<link href="@routes.Assets.at("stylesheets/lib/bs-docs.css")" rel="stylesheet">
+<link href="@routes.Assets.at("stylesheets/lib/typeahead.js-bootstrap.css")" rel="stylesheet">
+<link href="@routes.Assets.at("stylesheets/lib/datepicker.css")" rel="stylesheet">
+<link href="@routes.Assets.at("stylesheets/otp.min.css")" rel="stylesheet">
+</head>
+<body>
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="navbar-header">
+	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+	      <span class="sr-only">Toggle navigation</span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	    </button>
+	    <a class="navbar-brand" href="@controllers.routes.Application.index()">OTP</a>
+	  </div>
+	
+	  <!-- Collect the nav links, forms, and other content for toggling -->
+	  <div class="collapse navbar-collapse navbar-ex1-collapse">
+	    <ul class="nav navbar-nav">
+	      <li class="dropdown">
+	        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Order Management<b class="caret"></b></a>
+	        <ul class="dropdown-menu">
+	          <li><a href="@controllers.routes.SalesOrderController.createMasterData()">Create Sales Order</a></li>
+	          <li><a href="@controllers.routes.SalesOrderController.index()">Show Sales Orders</a></li>
+	          <li><a href="@controllers.routes.SalesOrderController.showRelease()">Release Order</a></li>
+	        </ul>
+	      </li>
+	      <li class="dropdown">
+	        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Warehouse Management<b class="caret"></b></a>
+	        <ul class="dropdown-menu">
+	          <li><a href="@controllers.routes.SalesOrderController.showPostGoodsIssue()">Post Goods Issue</a></li>
+	        </ul>
+	      </li>
+	      <li class="dropdown">
+	        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Invoicing<b class="caret"></b></a>
+	        <ul class="dropdown-menu">
+	          <li><a href="@controllers.routes.SalesOrderController.showPostCustomerInvoice()">Post Customer Invoice</a></li>
+	          <li><a href="@controllers.routes.InvoiceController.showDunning()">Dunning</a></li>
+	          <li><a href="@controllers.routes.InvoiceController.showPaymentReceipts()">Payment Receipts</a></li>
+	        </ul>
+	      </li>
+	      <li class="dropdown">
+	        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Master Data<b class="caret"></b></a>
+	        <ul class="dropdown-menu">
+	          <li><a href="@controllers.routes.ProductController.index()">Products</a></li>
+	          <li><a href="@controllers.routes.CustomerController.index()">Customers</a></li>
+	        </ul>
+	      </li>
+	    </ul>
+	  </div>
+	</nav>
+	
+	<div class="container">
+		@import views.html.helper._
+		
+		@content
+	</div>
+</body>
+
+<script src="@routes.Assets.at("js/lib/jquery-2.0.3.min.js")"></script>
+<script src="@routes.Assets.at("js/lib/bootstrap.min.js")"></script>
+<script src="@routes.Assets.at("js/lib/hogan-2.0.0.js")"></script>
+<script src="@routes.Assets.at("js/lib/typeahead.min.js")"></script>
+<script src="@routes.Assets.at("js/lib/bootstrap-datepicker.js")"></script>
+<script src="@routes.Assets.at("js/otp.js")"></script>
+<script src="@routes.Assets.at("js/paymentReceipts.js")"></script>
+</html>

@@ -1,0 +1,5 @@
+@(customerForm: Form[Customer])
+
+@main {
+	@form("Add", customerForm, routes.CustomerController.saveAdd())
+}

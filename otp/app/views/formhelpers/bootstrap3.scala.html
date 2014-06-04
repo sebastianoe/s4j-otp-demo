@@ -1,0 +1,8 @@
+@(elements: helper.FieldElements)
+
+@import views.html.helper._
+
+<div class="form-group">
+	<label for="@elements.id" class="control-label">@elements.label</label>
+	@elements.input
+</div>

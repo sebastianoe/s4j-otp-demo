@@ -1,0 +1,35 @@
+@(title: String, customerForm: Form[Customer], formAction: play.api.mvc.Call)
+
+@import views.html.helper._
+
+@implicitField = @{ FieldConstructor(formhelpers.bootstrap3.f) }
+
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<div class="row">
+			<h3>@title Customer</h3>
+		</div>
+		<div class="row">
+
+			@helper.form(action = formAction, 'role -> "form") {
+			   	@defining(customerForm("id")) { pidField => 
+			   		<input type="hidden" name="@pidField.name" id="@pidField.id" value="@Option(pidField.value).getOrElse(-1)">
+			   	}
+			   	@inputText(customerForm("Name"), 'class -> "form-control")
+			   	@inputText(customerForm("Street"), 'class -> "form-control")
+			   	@inputText(customerForm("StreetNumber"), 'class -> "form-control")
+			   	@inputText(customerForm("PostCode"), 'class -> "form-control")
+			   	@inputText(customerForm("city"), 'class -> "form-control")
+			   	@inputText(customerForm("firstName"), 'class -> "form-control")
+			   	@inputText(customerForm("lastName"), 'class -> "form-control")
+			   	@inputText(customerForm("phone"), 'class -> "form-control")
+			   	@inputText(customerForm("email"), 'class -> "form-control")
+			   	
+			   	<button type="submit" class="btn btn-default">Save</button>
+			   	
+			}
+		</div>
+	</div>
+	<div class="col-md-2"></div>
+</div>

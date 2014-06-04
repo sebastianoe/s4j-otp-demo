@@ -1,0 +1,66 @@
+@(salesOrders: List[SalesOrder])
+
+@main {
+	<h1>Release Goods</h1>
+	@if(flash.containsKey("success")) {
+		<div class="alert alert-success">
+			@flash.get("success") 
+		</div>
+	}
+	@if(flash.containsKey("error")) {
+		<div class="alert alert-error">
+			@flash.get("error") 
+		</div>
+	}
+
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Customer</th>
+						<th>Requested Delivery Date</th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@for(salesOrder <- salesOrders) {
+						<tr>
+							<td>
+								<a href="@controllers.routes.SalesOrderController.editProductData(salesOrder.getId())">
+									@salesOrder.getId()
+								</a>
+							</td>
+							<td>
+								<a href="@controllers.routes.CustomerController.details(salesOrder.getCustomer().getId())">
+									@salesOrder.getCustomer().getName()
+								</a>
+							</td>
+							<td>@salesOrder.getRequestedDeliveryDateString()</td>
+							<td class="success">
+								<a href="#" class="release"
+									data-target="@controllers.routes.SalesOrderController.release(salesOrder.getId())">
+									Release	
+								</a>
+							</td>
+							<td>
+								<a href="@controllers.routes.SalesOrderController.editProductData(salesOrder.getId())">
+									Edit	
+								</a>
+							</td>
+							<td class="danger">
+								<a href="#" class="reject-on-release"
+									data-target="@controllers.routes.SalesOrderController.reject(salesOrder.getId())">
+									Reject	
+								</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+}

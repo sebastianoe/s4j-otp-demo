@@ -1,0 +1,67 @@
+@(products: List[Product])
+
+@main {
+	<h1>Products</h1>
+	@if(flash.containsKey("success")) {
+		<div class="alert alert-success">
+			@flash.get("success") 
+		</div>
+	}
+	@if(flash.containsKey("error")) {
+		<div class="alert alert-error">
+			@flash.get("error") 
+		</div>
+	}
+	<div class="row">
+		<div class="col-md-12">
+			<ul class="list-inline">
+				<li>
+					<a href="@controllers.routes.ProductController.add()">
+						Add Product
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Name</th>
+						<th>Unit</th>
+						<th>PPrice</th>
+						<th>Default Margin</th>
+						<th>Stock Level</th>
+						<th>Shipping Cost</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@for(product <- products) {
+						<tr>
+							<td>@product.getId()</td>
+							<td>
+								<a href="@controllers.routes.ProductController.edit(product.getId())">
+									@product.getName()
+								</a>
+							</td>
+							<td>@product.getUnit()</td>
+							<td>@product.getPprice()</td>
+							<td>@product.getDefaultMargin()</td>
+							<td>@product.getStockLevel()</td>
+							<td>@product.getShippingCost()</td>
+							<td class="danger">
+								<a href="@controllers.routes.ProductController.delete(product.getId())">
+									Delete	
+								</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+}

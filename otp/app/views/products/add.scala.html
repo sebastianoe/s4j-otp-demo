@@ -1,0 +1,5 @@
+@(productForm: Form[Product])
+
+@main {
+	@form("Add", productForm, routes.ProductController.saveAdd())
+}

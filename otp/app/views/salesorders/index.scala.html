@@ -1,0 +1,67 @@
+@(salesOrders: List[SalesOrder])
+
+@main {
+	<h1>Sales Orders</h1>
+	@if(flash.containsKey("success")) {
+		<div class="alert alert-success">
+			@flash.get("success") 
+		</div>
+	}
+	@if(flash.containsKey("error")) {
+		<div class="alert alert-error">
+			@flash.get("error") 
+		</div>
+	}
+
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Customer</th>
+						<th>Priority</th>
+						<th>Status</th>
+						<th>Payment Terms</th>
+						<th>Requested Delivery Date</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@for(salesOrder <- salesOrders) {
+						<tr>
+							<td>
+								<a href="@controllers.routes.SalesOrderController.editProductData(salesOrder.getId())">
+									@salesOrder.getId()
+								</a>
+							</td>
+							<td>
+								<a href="@controllers.routes.CustomerController.details(salesOrder.getCustomer().getId())">
+									@salesOrder.getCustomer().getName()
+								</a>
+							</td>
+							<td>@salesOrder.getPriority()</td>
+							<td class="status">@salesOrder.getStatus()</td>
+							<td>
+								<a href="#">
+									@salesOrder.getPaymentTerm().getDescription()
+								</a>
+							</td>
+							<td>
+								@salesOrder.getRequestedDeliveryDateString()
+							</td>
+							<td class="danger">
+								@if(salesOrder.getStatus() != "rejected") {
+									<a href="#" class="reject-on-index"
+										data-target="@controllers.routes.SalesOrderController.reject(salesOrder.getId())">
+										Reject	
+									</a>
+								}
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+}

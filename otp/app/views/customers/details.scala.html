@@ -1,0 +1,142 @@
+@(customer: Customer, monthDso: Double, yearDso: Double)
+
+@main {
+	<h1>@customer.getName() (@customer.getId())</h1>
+	<p>
+		<a href="@controllers.routes.CustomerController.edit(customer.getId())">
+			Edit
+		</a>
+	</p>
+	
+	<div class="row">
+		<div class="col-md-6">
+		
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Contact Person</h3>
+				</div>
+				<div class="panel-body">
+					<div class="row top-buffer">
+						<div class="col-md-6">
+							<div><strong>First Name</strong></div>
+							<div>@customer.getFirstName()</div>
+						</div>
+						<div class="col-md-6">
+							<div><strong>Last Name</strong></div>
+							<div>@customer.getLastName()</div>
+						</div>
+					</div>
+					
+					<div class="row top-buffer">
+						<div class="col-md-12">
+							<div><strong>Phone</strong></div>
+							<div>@customer.getPhone()</div>
+						</div>
+					</div>
+					
+					<div class="row top-buffer">
+						<div class="col-md-12">
+							<div><strong>E-Mail</strong></div>
+							<div>@customer.getEmail()</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="col-md-6">
+			
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Address</h3>
+				</div>
+				<div class="panel-body">
+					<div class="row top-buffer">
+						<div class="col-md-6">
+							<div><strong>Street</strong></div>
+							<div>@customer.getStreet()</div>
+						</div>
+						<div class="col-md-6">
+							<div><strong>Street Number</strong></div>
+							<div>@customer.getStreetNumber()</div>
+						</div>
+					</div>
+					<div class="row top-buffer">
+						<div class="col-md-6">
+							<div><strong>ZIP</strong></div>
+							<div>@customer.getPostCode()</div>
+						</div>
+						<div class="col-md-6">
+							<div><strong>City</strong></div>
+							<div>@customer.getCity()</div>
+						</div>
+					</div>
+				</div>
+			</div>
+					
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-6">
+		
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Last Orders</h3>
+				</div>
+				<div class="panel-body">
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Salers Order ID</th>
+								<th>Status</th>
+								<th>Promise Date</th>
+								<th>Net Value</th>
+							</tr>
+						</thead>
+						<tbody>
+							@for(salesOrder <- customer.getSalesOrders()) {
+								<tr>
+									<td>@salesOrder.getId()</td>
+									<td>@salesOrder.getStatus()</td>
+									<td>?</td>
+									<td>?</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+		</div>
+		<div class="col-md-6">
+		
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">DSO</h3>
+				</div>
+				<div class="panel-body">
+					<table>
+						<tr>
+							<th>Last Month:</th>
+							<td>@("%.2f".format(monthDso))</td>
+						</tr>
+						<tr>
+							<th>Last Year:</th>
+							<td>@("%.2f".format(yearDso))</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	
+}

@@ -1,0 +1,5 @@
+@(productForm: Form[Product])
+
+@main {
+	@form("Edit", productForm, routes.ProductController.saveEdit(productForm.get().getId()))
+}

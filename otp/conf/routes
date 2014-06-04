@@ -1,0 +1,54 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /                           			                controllers.Application.index()
+                                                                
+GET		/customers								                controllers.CustomerController.index()
+GET		/customers/:id/details					                controllers.CustomerController.details(id: Long)
+GET		/customers/add							                controllers.CustomerController.add()
+POST	/customers/add							                controllers.CustomerController.saveAdd()
+GET		/customers/:id							                controllers.CustomerController.edit(id: Long)
+POST	/customers/:id							                controllers.CustomerController.saveEdit(id: Long)
+GET		/customers/:id/delete					                controllers.CustomerController.delete(id: Long)
+GET		/customers/json/:query					                controllers.CustomerController.namesJson(query: String)
+                                                                
+GET		/products								                controllers.ProductController.index()
+GET		/products/add							                controllers.ProductController.add()
+POST	/products/add							                controllers.ProductController.saveAdd()
+GET		/products/:id							                controllers.ProductController.edit(id: Long)
+POST	/products/:id							                controllers.ProductController.saveEdit(id: Long)
+GET		/products/:id/delete					                controllers.ProductController.delete(id: Long)
+GET		/products/json/:query					                controllers.ProductController.autocompleteJson(query: String)
+                                                                
+GET		/sales_orders							                controllers.SalesOrderController.index()
+GET		/sales_orders/create/master				                controllers.SalesOrderController.createMasterData()
+GET		/sales_orders/:id/products				                controllers.SalesOrderController.editProductData(id: Long)
+POST	/sales_orders/create/master				                controllers.SalesOrderController.saveMasterData()
+POST	/sales_orders/:id/products				                controllers.SalesOrderController.saveProductData(id: Long)
+POST	/sales_orders/atp						                controllers.SalesOrderController.performAtpCheck()
+GET		/sales_orders/showrelease				                controllers.SalesOrderController.showRelease()
+POST	/sales_orders/:id/release				                controllers.SalesOrderController.release(id: Long)
+POST	/sales_orders/:id/reject				                controllers.SalesOrderController.reject(id: Long)
+                                                                
+GET		/sales_orders/showpostgoodsissue		                controllers.SalesOrderController.showPostGoodsIssue()
+GET		/sales_orders/:id/postgoodsissue		                controllers.SalesOrderController.postGoodsIssue(id: Long)
+                                                                
+GET		/sales_orders/showpostcustomerinvoice	                controllers.SalesOrderController.showPostCustomerInvoice()
+GET		/sales_orders/:orderId/:outboundId/postcustomerinvoice	controllers.SalesOrderController.postCustomerInvoice(orderId: Long, outboundId: Long)
+
+GET		/payment_receipts										controllers.InvoiceController.showPaymentReceipts()
+GET		/invoices/search/:query									controllers.InvoiceController.searchInvoices(query: String)
+POST	/invoices/customer_details								controllers.InvoiceController.customerDetails()
+POST	/invoices/invoice_details								controllers.InvoiceController.invoiceDetails()
+POST	/payment_receipts/add									controllers.InvoiceController.addPaymentReceipt()
+POST	/payment_receipts/delete								controllers.InvoiceController.deletePaymentReceipt()
+POST	/payment_receipts/setpaid								controllers.InvoiceController.setPaid()
+POST	/invoices/daysdiscount									controllers.InvoiceController.daysDiscount()
+
+POST	/invoices/dun											controllers.InvoiceController.dun()
+GET		/invoices/showdunning									controllers.InvoiceController.showDunning()
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               							controllers.Assets.at(path="/public", file)
