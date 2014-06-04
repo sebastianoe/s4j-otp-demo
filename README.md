@@ -1,12 +1,11 @@
 Webapp Demo System for the SQL4Java Project
 ====================================================
 
-Introduction
-------------
-tbd.
+## Introduction
 
-Getting Started
----------------
+This project is a demo webapp that models an order-to-pay process for the [SQL4Java (S4J) project][s4j].
+
+## Getting Started
 
 0. Check out this repository and `cd` into it.  
    `$ cd s4j-otp-demo`
@@ -20,8 +19,8 @@ Getting Started
 7. In your browser, open `http://localhost:9000`. This might take a few moments for the first time due to the ad-hoc compilation of the source files.
 
 
-License
--------
+## License
+
 The MIT License (MIT)
 
 Copyright (c) 2014 Sebastian Oergel
@@ -44,8 +43,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-3rd Party Components
----–----------------
+## 3rd Party Components
+
 This demo webapp contains at least parts of the following frameworks and tools:
 
 * Twitter [Bootstrap][bootstrap]
@@ -59,3 +58,4 @@ This demo webapp contains at least parts of the following frameworks and tools:
 [hogan]: http://twitter.github.io/hogan.js/
 [typeahead]: http://twitter.github.io/typeahead.js/
 [jquery]: http://jquery.com/
+[s4j]: https://github.com/sebastianoe/s4j
